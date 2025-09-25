@@ -2,7 +2,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
+from dotenv import load_dotenv
 import os
+load_dotenv()
+FRONTEND_ORIGIN = os.getenv("FRONTEND_ORIGIN", "http://localhost:5173")
 language_to_ext = {
     "rust": "rs",
     "cpp": "cpp",
@@ -27,8 +30,7 @@ class TranslateBody(BaseModel):
     
 app = FastAPI()
 origins = [
-    "http://localhost:3000",
-    "http://localhost:5173"
+    FRONTEND_ORIGIN
 ]
 # adding cors
 app.add_middleware(
