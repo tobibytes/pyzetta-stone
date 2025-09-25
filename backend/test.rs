@@ -29,4 +29,6 @@
 #![allow(unused_mut)]
 #![allow(unused_parens)]
 
-println!("{}", "hello world");
+pub fn main() -> &'static str {
+    return "its working" as &'static str;
+}

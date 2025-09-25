@@ -1,2 +1,3 @@
 # Write your python code here
-print("hello world")
+def main():
+    return "its working"

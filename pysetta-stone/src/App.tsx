@@ -1,24 +1,29 @@
 import { useRef, useState, useEffect } from 'react'
 import './App.css'
-import { Editor } from '@monaco-editor/react'
+import { Editor} from '@monaco-editor/react'
+import type { editor } from 'monaco-editor'
+
 const backend_url = "https://kd35z1pp-8000.usw3.devtunnels.ms"
 
 function App() {
-  const [pythonCode, setPythonCode] = useState('')
   const [selectedLanguage, setSelectedLanguage] = useState('')
   const [transpiledCode, setTranspiledCode] = useState('')
   const [code, setCode] = useState({
     language: '',
-    code: pythonCode
+    code: ''
   })
   
-  const editorRef = useRef(null);
+  const editorRef = useRef<editor.IStandaloneCodeEditor>(null);
 
-  const handleEditorDidMount = (editor, monacoInstance) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleEditorDidMount = (editor: editor.IStandaloneCodeEditor, monacoInstance: typeof import("monaco-editor")) => {
     editorRef.current = editor;
+
   }
 
-  const handleEditorChange = (value) => {
+  const handleEditorChange = (value: string | undefined) => {
+    if (typeof value === 'undefined')
+    {return}
     setCode(prevCode => ({ ...prevCode, code: value }))
     // Log the new value directly since state updates are async
     console.log({ ...code, code: value })
@@ -88,12 +93,12 @@ function App() {
             defaultValue='# Write your python code here' 
           />
           <Editor 
-            readOnly={true} 
+            // readOnly={true} 
             className='output-editor' 
             height={"60vh"} 
             width={"40vw"} 
             language={selectedLanguage} 
-            defaultValue='// See the output her' 
+            defaultValue='// See the output here' 
             value={transpiledCode}
           />
         </div>
