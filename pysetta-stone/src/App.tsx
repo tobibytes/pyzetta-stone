@@ -3,7 +3,7 @@ import './App.css'
 import { Editor} from '@monaco-editor/react'
 import type { editor } from 'monaco-editor'
 
-const backend_url = "https://kd35z1pp-8000.usw3.devtunnels.ms"
+const backend_url = import.meta.env.VITE_BACKEND_ORIGIN
 
 function App() {
   const [selectedLanguage, setSelectedLanguage] = useState('')
@@ -15,8 +15,9 @@ function App() {
   
   const editorRef = useRef<editor.IStandaloneCodeEditor>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleEditorDidMount = (editor: editor.IStandaloneCodeEditor, monacoInstance: typeof import("monaco-editor")) => {
+  const handleEditorDidMount = (editor: editor.IStandaloneCodeEditor, 
+    // monacoInstance: typeof import("monaco-editor")
+  ) => {
     editorRef.current = editor;
 
   }
